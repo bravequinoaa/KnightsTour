@@ -26,15 +26,11 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 red = (180, 0, 0)
 
-def DisplayGui(board):
+def DisplayGui(board, final=False):
 	# run = True
 	# while run:
 	win.fill(black)
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			# run = False
-			print("CLOSING")
-
+	
 	for i in range(N):
 		ydraw = i * (WIN_DIMENSION/N)
 		for n in range(N):
@@ -42,7 +38,11 @@ def DisplayGui(board):
 			pygame.draw.rect(win, red, (xdraw, ydraw, WIN_DIMENSION/N, WIN_DIMENSION/N), 3)
 			displayText(board[i][n], xdraw, ydraw)
 			
-
+	while final:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				final = False
+				print("CLOSING")
 
 	
 	pygame.display.update()
@@ -98,7 +98,7 @@ def KnightsTour():
 
 	if generateMove(board, currx, curry, totalmoves, xmoves, ymoves):
 		printBoard(board)
-		DisplayGui(board)
+		DisplayGui(board, True)
 	else: print("Invalid")
 	
 
