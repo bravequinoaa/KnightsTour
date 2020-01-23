@@ -1,4 +1,5 @@
 import pygame
+import time
 
 # Prob have to slow down (sleep?)
 # timer
@@ -30,22 +31,22 @@ def DisplayGui(board, final=False):
 	# run = True
 	# while run:
 	win.fill(black)
-	
+
 	for i in range(N):
 		ydraw = i * (WIN_DIMENSION/N)
 		for n in range(N):
 			xdraw = n * (WIN_DIMENSION / N)
 			pygame.draw.rect(win, red, (xdraw, ydraw, WIN_DIMENSION/N, WIN_DIMENSION/N), 3)
 			displayText(board[i][n], xdraw, ydraw)
-			
+	
 	while final:
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				final = False
 				print("CLOSING")
 
-	
 	pygame.display.update()
+	#time.sleep(1)
 
 
 def text_objects(text, font):
@@ -110,6 +111,8 @@ def generateMove(board, currx, curry, totalmoves, xmoves, ymoves):
 		return True
 
 	print("X: {} <> Y: {}".format(currx, curry)) # draw  board here
+	
+	DisplayGui(board)		 
 
 
 	for i in range(8):
@@ -119,8 +122,10 @@ def generateMove(board, currx, curry, totalmoves, xmoves, ymoves):
 
 		if checkValid(board, nextx, nexty):
 			board[nextx][nexty] = totalmoves
+		
 
 			if generateMove(board, nextx, nexty, totalmoves+1, xmoves, ymoves):
+
 				return True
 			# backtracking
 			board[nextx][nexty] = " "
