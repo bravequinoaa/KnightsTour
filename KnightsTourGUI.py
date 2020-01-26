@@ -32,6 +32,9 @@ def DisplayGui(board, final=False):
 	# while run:
 	win.fill(black)
 
+	if not final:
+		pygame.event.pump()
+
 	for i in range(N):
 		ydraw = i * (WIN_DIMENSION/N)
 		for n in range(N):
