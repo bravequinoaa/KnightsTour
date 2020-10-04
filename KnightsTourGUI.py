@@ -1,21 +1,13 @@
 import pygame
 import time
 
-# Prob have to slow down (sleep?)
-# timer
-# arrow for path
-
-# Init Gui
-
 pygame.init()
-
 
 # Window Size
 WIN_DIMENSION = 800
 
 win = pygame.display.set_mode((WIN_DIMENSION, WIN_DIMENSION))
 pygame.display.set_caption("Knights Tour")
-
 
 # Board Size
 N = 8
@@ -28,8 +20,6 @@ black = (0, 0, 0)
 red = (180, 0, 0)
 
 def DisplayGui(board, final=False):
-	# run = True
-	# while run:
 	win.fill(black)
 
 	if not final:
@@ -49,8 +39,6 @@ def DisplayGui(board, final=False):
 				print("CLOSING")
 
 	pygame.display.update()
-	#time.sleep(1)
-
 
 def text_objects(text, font):
 	textSurface = font.render(str(text), True, white)
@@ -63,6 +51,9 @@ def displayText(text, xdraw, ydraw):
 	TextRect.center = ((xdraw + (WIN_DIMENSION / N) / 2), (ydraw + (WIN_DIMENSION / N) / 2))
 	win.blit(TextSurf, TextRect)
 
+def printBoard(board):
+	for i in range(len(board)):
+		print(board[i])
 
 def checkValid(board, movx, movy):
 	'''
@@ -75,39 +66,6 @@ def checkValid(board, movx, movy):
 	if (movx >= 0 and movy >= 0 and movx < N and movy < N and board[movx][movy] == " "):
 		return True
 	return False
-
-
-def printBoard(board):
-	'''
-		Prints Board
-	'''
-	for i in range(len(board)):
-		print(board[i])
-
-
-def KnightsTour():
-	currx = 0
-	curry = 0
-
-	# Init board
-	board = [[" " for i in range(N)] for i in range(N)]
-
-	xmoves = [-2, -2, -1, -1, 1, 1, 2, 2]
-	ymoves = [1, -1, 2, -2, 2, -2, 1, -1]
-
-	totalmoves = 1
-
-	board[0][0] = 0
-	DisplayGui(board)
-
-	if generateMove(board, currx, curry, totalmoves, xmoves, ymoves):
-		printBoard(board)
-		DisplayGui(board, True)
-	else: print("Invalid")
-	
-
-	
-
 
 def generateMove(board, currx, curry, totalmoves, xmoves, ymoves):
 	if totalmoves == TARGETMOVES:
@@ -137,5 +95,21 @@ def generateMove(board, currx, curry, totalmoves, xmoves, ymoves):
 
 
 if __name__ == "__main__":
-	KnightsTour()
-	
+	currx = 0
+	curry = 0
+
+	# Init board
+	board = [[" " for i in range(N)] for i in range(N)]
+
+	xmoves = [-2, -2, -1, -1, 1, 1, 2, 2]
+	ymoves = [1, -1, 2, -2, 2, -2, 1, -1]
+
+	totalmoves = 1
+
+	board[0][0] = 0
+	DisplayGui(board)
+
+	if generateMove(board, currx, curry, totalmoves, xmoves, ymoves):
+		printBoard(board)
+		DisplayGui(board, True)
+	else: print("Invalid")
